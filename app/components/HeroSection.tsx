@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { useTheme } from "@/app/contexts/ThemeContext";
 
@@ -307,10 +308,14 @@ export default function HeroSection() {
             <div className="absolute inset-10 rounded-full blur-2xl bg-indigo-500/25" />
 
             {/* Avatar */}
-            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-500 flex items-center justify-center shadow-2xl shadow-indigo-600/40">
-              <span className="text-4xl sm:text-5xl lg:text-6xl font-black text-white select-none tracking-tight">
-                HA
-              </span>
+            <div className="absolute inset-8 rounded-full overflow-hidden shadow-2xl shadow-indigo-600/40">
+              <Image
+                src="/profile.png"
+                alt="Hani Alsakani"
+                fill
+                style={{ objectFit: "cover" }}
+                priority
+              />
             </div>
 
             {/* ECBA badge */}
