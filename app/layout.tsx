@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Syne, Manrope, JetBrains_Mono } from "next/font/google";
+import { Newsreader, Public_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/app/components/CustomCursor";
-import ProgressBar from "@/app/components/ProgressBar";
 import { ThemeProvider } from "@/app/contexts/ThemeContext";
+import ProgressBar from "@/app/components/ProgressBar";
+import { SITE, SITE_URL } from "@/content/site";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-
-const syne = Syne({
-  variable: "--font-syne",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const publicSans = Public_Sans({
+  variable: "--font-public-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -26,14 +25,29 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hani Alsakani | Business Analyst & Data Analytics",
-  description:
-    "Professional portfolio of Hani Alsakani — Business Analyst and Data Analytics specialist based in Greater London, UK. ECBA certified with expertise in Tableau, Power BI, SQL, and process optimisation.",
-  keywords: ["Business Analyst", "Data Analytics", "Tableau", "Power BI", "SQL", "ECBA", "London"],
-  authors: [{ name: "Hani Alsakani" }],
+  metadataBase: new URL(SITE_URL),
+  title: `${SITE.name} | ${SITE.role}`,
+  description: SITE.description,
+  keywords: [...SITE.keywords],
+  authors: [{ name: SITE.name }],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "profile",
+    url: "/",
+    siteName: SITE.name,
+    title: `${SITE.name} | ${SITE.role}`,
+    description: SITE.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} | ${SITE.role}`,
+    description: SITE.description,
+  },
 };
 
-const INIT_THEME_SCRIPT = `try{var t=localStorage.getItem('portfolio-theme');if(t==='executive')document.documentElement.setAttribute('data-theme','executive');}catch(e){}`;
+// Applies the stored theme (or the OS preference) before first paint so
+// there is no flash of the wrong theme.
+const INIT_THEME_SCRIPT = `try{var t=localStorage.getItem('portfolio-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}`;
 
 export default function RootLayout({
   children,
@@ -44,12 +58,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${syne.variable} ${manrope.variable} ${jetbrainsMono.variable} scroll-smooth`}
+      className={`${newsreader.variable} ${publicSans.variable} ${jetbrainsMono.variable}`}
     >
-      <body suppressHydrationWarning className="min-h-screen antialiased overflow-x-hidden">
+      <body className="min-h-screen antialiased">
         <script dangerouslySetInnerHTML={{ __html: INIT_THEME_SCRIPT }} />
         <ThemeProvider>
-          <CustomCursor />
           <ProgressBar />
           {children}
         </ThemeProvider>

@@ -1,42 +1,52 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useSyncExternalStore } from "react";
 
-export type Theme = "space" | "executive";
+export type Theme = "light" | "dark";
 
-const ThemeContext = createContext<{ theme: Theme; setTheme: (t: Theme) => void }>({
-  theme: "space",
-  setTheme: () => {},
+const STORAGE_KEY = "portfolio-theme";
+
+// The <html data-theme> attribute — set before paint by the inline script
+// in layout.tsx — is the single source of truth; React just subscribes.
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+  return () => observer.disconnect();
+}
+
+function getSnapshot(): Theme {
+  return document.documentElement.getAttribute("data-theme") === "dark"
+    ? "dark"
+    : "light";
+}
+
+function getServerSnapshot(): Theme {
+  return "light";
+}
+
+const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({
+  theme: "light",
+  toggle: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("space");
-  const mounted = useRef(false);
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("portfolio-theme") as Theme | null;
-      if (saved === "executive") setTheme("executive");
-    } catch {}
-  }, []);
-
-  useEffect(() => {
+  const toggle = () => {
+    const next: Theme = theme === "light" ? "dark" : "light";
     const html = document.documentElement;
-
-    if (mounted.current) {
-      html.classList.add("theme-switching");
-      setTimeout(() => html.classList.remove("theme-switching"), 600);
-    }
-    mounted.current = true;
-
-    html.setAttribute("data-theme", theme);
+    if (next === "dark") html.setAttribute("data-theme", "dark");
+    else html.removeAttribute("data-theme");
     try {
-      localStorage.setItem("portfolio-theme", theme);
+      localStorage.setItem(STORAGE_KEY, next);
     } catch {}
-  }, [theme]);
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, toggle }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -1,294 +1,114 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-background: #0a0a0c;
-  --color-foreground: #f1f5f9;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-/* ── Space theme (default) ─────────────────────────────────────── */
+/* ── "Ledger & Brass" token system ─────────────────────────────────
+   Components style themselves exclusively through these tokens (via
+   the Tailwind mappings below). Adding or changing a theme means
+   editing one block here — never touching a component.
+   ────────────────────────────────────────────────────────────────── */
 
 :root {
-  --bg-primary: #0a0a0c;
-  --bg-surface: #0d0d14;
-  --text-primary: #f1f5f9;
-  --accent: #6366f1;
-  --accent2: #22d3ee;
-  --cursor-dot-color: #6366f1;
-  --cursor-ring-color: rgba(34, 211, 238, 0.8);
-  --progress-from: #6366f1;
-  --progress-to: #22d3ee;
-  --divider-gradient: linear-gradient(to right, transparent, #6366f1, #22d3ee, transparent);
-  --scrollbar-thumb: #6366f1;
-  --font-display: var(--font-geist-sans);
-  --font-body: var(--font-geist-sans);
-  --font-technical: var(--font-geist-mono);
+  /* Day ledger (light — default) */
+  --paper: #f2f5f9;
+  --surface: #ffffff;
+  --ink: #0c1b33;
+  --ink-soft: #44536b;
+  --ink-faint: #5f6f88;
+  --hairline: #d7dfe9;
+  --navy: #1b3a66;
+  --navy-bright: #2d598f;
+  --navy-wash: #e4ecf6;
+  --brass: #8f6a2a;
+  --brass-soft: #a97e35;
+  --good: #2e7d5b;
 }
 
-/* ── Executive Red theme ────────────────────────────────────────── */
-
-[data-theme="executive"] {
-  --bg-primary: #0a0a0a;
-  --bg-surface: #111111;
-  --text-primary: #f5f0e8;
-  --accent: #cc0a1f;
-  --accent2: #7a0612;
-  --cursor-dot-color: #cc0a1f;
-  --cursor-ring-color: rgba(204, 10, 31, 0.8);
-  --progress-from: #cc0a1f;
-  --progress-to: #7a0612;
-  --divider-gradient: linear-gradient(to right, transparent, #cc0a1f, #7a0612, transparent);
-  --scrollbar-thumb: #cc0a1f;
-  --font-display: var(--font-syne, var(--font-geist-sans));
-  --font-body: var(--font-manrope, var(--font-geist-sans));
-  --font-technical: var(--font-jetbrains, var(--font-geist-mono));
-
-  /* ── Override Tailwind color palette ── */
-
-  /* indigo → Guards red */
-  --color-indigo-50: #fff0f2;
-  --color-indigo-100: #ffd6da;
-  --color-indigo-200: #ffb0b9;
-  --color-indigo-300: #f47585;
-  --color-indigo-400: #e8334a;
-  --color-indigo-500: #cc0a1f;
-  --color-indigo-600: #a3081c;
-  --color-indigo-700: #7a0612;
-  --color-indigo-800: #52040d;
-  --color-indigo-900: #2e0208;
-  --color-indigo-950: #1a0105;
-
-  /* cyan → deep red */
-  --color-cyan-50: #fff5f5;
-  --color-cyan-100: #ffe0e3;
-  --color-cyan-200: #ffc2c8;
-  --color-cyan-300: #e07080;
-  --color-cyan-400: #a31020;
-  --color-cyan-500: #7a0612;
-  --color-cyan-600: #5a0410;
-  --color-cyan-700: #3e030b;
-  --color-cyan-800: #270207;
-  --color-cyan-900: #140104;
-  --color-cyan-950: #0a0102;
-
-  /* violet → crimson */
-  --color-violet-50: #fff5f5;
-  --color-violet-100: #ffe0e3;
-  --color-violet-200: #ffb8be;
-  --color-violet-300: #e56070;
-  --color-violet-400: #cc0a1f;
-  --color-violet-500: #a3081c;
-  --color-violet-600: #7a0612;
-  --color-violet-700: #52040d;
-  --color-violet-800: #2e0208;
-  --color-violet-900: #140104;
-  --color-violet-950: #0a0102;
-
-  /* purple → crimson */
-  --color-purple-50: #fff5f5;
-  --color-purple-100: #ffe0e3;
-  --color-purple-200: #ffb8be;
-  --color-purple-300: #e56070;
-  --color-purple-400: #cc0a1f;
-  --color-purple-500: #a3081c;
-  --color-purple-600: #7a0612;
-  --color-purple-700: #52040d;
-  --color-purple-800: #2e0208;
-  --color-purple-900: #140104;
-  --color-purple-950: #0a0102;
+[data-theme="dark"] {
+  /* Night edition (dark) */
+  --paper: #0b1524;
+  --surface: #101d31;
+  --ink: #e7edf6;
+  --ink-soft: #a9b8cf;
+  --ink-faint: #8296b2;
+  --hairline: #23344e;
+  --navy: #8fb4e4;
+  --navy-bright: #a9c6ec;
+  --navy-wash: #16263e;
+  --brass: #d5a961;
+  --brass-soft: #b08540;
+  --good: #57b48c;
 }
 
-/* Executive: typography */
-[data-theme="executive"] body {
-  font-family: var(--font-body);
-  color: var(--text-primary);
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-hairline: var(--hairline);
+  --color-navy: var(--navy);
+  --color-navy-bright: var(--navy-bright);
+  --color-navy-wash: var(--navy-wash);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-good: var(--good);
+
+  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-public-sans), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-[data-theme="executive"] h1,
-[data-theme="executive"] h2,
-[data-theme="executive"] h3 {
-  font-family: var(--font-display);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-[data-theme="executive"] .font-black,
-[data-theme="executive"] [class*="text-4xl"].font-black,
-[data-theme="executive"] [class*="text-3xl"].font-black {
-  font-family: var(--font-technical);
-}
-
-/* ── Smooth theme switching ─────────────────────────────────────── */
-
-.theme-switching,
-.theme-switching * {
-  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease !important;
-}
-
-/* ── Base styles ────────────────────────────────────────────────── */
+/* ── Base ─────────────────────────────────────────────────────────── */
 
 html {
-  scroll-behavior: smooth;
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  overflow-x: hidden;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-*,
-*::before,
-*::after {
-  cursor: none !important;
+::selection {
+  background: var(--navy);
+  color: var(--paper);
 }
 
-/* Custom scrollbar */
+:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+
+/* Anchor targets clear the sticky masthead */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Numerals line up in stat ledgers and date columns */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--paper);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
+  background: var(--hairline);
   border-radius: 3px;
-  transition: background 0.5s ease;
 }
-
-/* Section divider glow */
-.section-divider {
-  height: 1px;
-  background: var(--divider-gradient);
-  transition: background 0.5s ease;
-}
-
-/* ── Executive: explicit Tailwind override layer ──────────────────
-   Tailwind v4 may compile colors at build time, so we add direct
-   CSS rules as a guaranteed fallback for every pattern in use.
-   ─────────────────────────────────────────────────────────────── */
-
-/* Text colours */
-[data-theme="executive"] .text-indigo-200 { color: #ffb0b9; }
-[data-theme="executive"] .text-indigo-300 { color: #f47585; }
-[data-theme="executive"] .text-indigo-400 { color: #e8334a; }
-[data-theme="executive"] .text-indigo-500 { color: #cc0a1f; }
-[data-theme="executive"] .text-cyan-200   { color: #ffc2c8; }
-[data-theme="executive"] .text-cyan-300   { color: #e07080; }
-[data-theme="executive"] .text-cyan-400   { color: #a31020; }
-[data-theme="executive"] .text-violet-200 { color: #ffb8be; }
-[data-theme="executive"] .text-violet-300 { color: #e56070; }
-[data-theme="executive"] .text-purple-300 { color: #e56070; }
-[data-theme="executive"] .text-purple-400 { color: #cc0a1f; }
-[data-theme="executive"] .text-slate-300  { color: #d4c8bc; }
-[data-theme="executive"] .text-slate-400  { color: #b8a898; }
-[data-theme="executive"] .text-slate-500  { color: #9a8878; }
-
-/* Backgrounds with opacity */
-[data-theme="executive"] .bg-indigo-500\/10  { background-color: rgba(204,10,31,0.10); }
-[data-theme="executive"] .bg-indigo-500\/20  { background-color: rgba(204,10,31,0.20); }
-[data-theme="executive"] .bg-indigo-500\/25  { background-color: rgba(204,10,31,0.25); }
-[data-theme="executive"] .bg-indigo-500\/30  { background-color: rgba(204,10,31,0.30); }
-[data-theme="executive"] .bg-indigo-500      { background-color: #cc0a1f; }
-[data-theme="executive"] .bg-indigo-600      { background-color: #a3081c; }
-[data-theme="executive"] .bg-cyan-500\/10    { background-color: rgba(122,6,18,0.10); }
-[data-theme="executive"] .bg-cyan-500\/20    { background-color: rgba(122,6,18,0.20); }
-[data-theme="executive"] .bg-cyan-500\/25    { background-color: rgba(122,6,18,0.25); }
-[data-theme="executive"] .bg-violet-500\/10  { background-color: rgba(163,8,28,0.10); }
-[data-theme="executive"] .bg-violet-500\/20  { background-color: rgba(163,8,28,0.20); }
-[data-theme="executive"] .bg-violet-500\/25  { background-color: rgba(163,8,28,0.25); }
-[data-theme="executive"] .bg-purple-500\/20  { background-color: rgba(163,8,28,0.20); }
-
-/* Borders with opacity */
-[data-theme="executive"] .border-indigo-500\/30 { border-color: rgba(204,10,31,0.30); }
-[data-theme="executive"] .border-indigo-500\/40 { border-color: rgba(204,10,31,0.40); }
-[data-theme="executive"] .border-indigo-500\/50 { border-color: rgba(204,10,31,0.50); }
-[data-theme="executive"] .border-indigo-500\/60 { border-color: rgba(204,10,31,0.60); }
-[data-theme="executive"] .border-indigo-400     { border-color: #e8334a; }
-[data-theme="executive"] .border-indigo-900\/30 { border-color: rgba(46,2,8,0.30); }
-[data-theme="executive"] .border-cyan-500\/30   { border-color: rgba(122,6,18,0.30); }
-[data-theme="executive"] .border-cyan-500\/40   { border-color: rgba(122,6,18,0.40); }
-[data-theme="executive"] .border-violet-500\/30 { border-color: rgba(163,8,28,0.30); }
-[data-theme="executive"] .border-violet-500\/40 { border-color: rgba(163,8,28,0.40); }
-[data-theme="executive"] .border-violet-500\/50 { border-color: rgba(163,8,28,0.50); }
-[data-theme="executive"] .border-purple-500\/50 { border-color: rgba(163,8,28,0.50); }
-
-/* Hover border/bg overrides */
-[data-theme="executive"] .hover\:border-indigo-500\/30:hover { border-color: rgba(204,10,31,0.30); }
-[data-theme="executive"] .hover\:border-indigo-500\/40:hover { border-color: rgba(204,10,31,0.40); }
-[data-theme="executive"] .hover\:border-indigo-400\/60:hover { border-color: rgba(232,51,74,0.60); }
-[data-theme="executive"] .hover\:border-indigo-400:hover     { border-color: #e8334a; }
-[data-theme="executive"] .hover\:bg-indigo-500\/10:hover     { background-color: rgba(204,10,31,0.10); }
-[data-theme="executive"] .hover\:bg-indigo-500\/20:hover     { background-color: rgba(204,10,31,0.20); }
-[data-theme="executive"] .hover\:bg-indigo-500\/25:hover     { background-color: rgba(204,10,31,0.25); }
-[data-theme="executive"] .hover\:border-cyan-400\/60:hover   { border-color: rgba(163,8,28,0.60); }
-[data-theme="executive"] .hover\:bg-cyan-500\/25:hover       { background-color: rgba(122,6,18,0.25); }
-[data-theme="executive"] .hover\:border-violet-400\/60:hover { border-color: rgba(163,8,28,0.60); }
-[data-theme="executive"] .hover\:bg-violet-500\/25:hover     { background-color: rgba(163,8,28,0.25); }
-
-/* Shadows */
-[data-theme="executive"] .shadow-indigo-500\/10 { --tw-shadow-color: rgba(204,10,31,0.10); }
-[data-theme="executive"] .shadow-indigo-500\/20 { --tw-shadow-color: rgba(204,10,31,0.20); }
-[data-theme="executive"] .shadow-indigo-500\/30 { --tw-shadow-color: rgba(204,10,31,0.30); }
-[data-theme="executive"] .shadow-indigo-500\/40 { --tw-shadow-color: rgba(204,10,31,0.40); }
-[data-theme="executive"] .shadow-indigo-600\/40 { --tw-shadow-color: rgba(163,8,28,0.40); }
-[data-theme="executive"] .shadow-purple-500\/20 { --tw-shadow-color: rgba(163,8,28,0.20); }
-
-/* ── Gradient overrides ──────────────────────────────────────────
-   Multi-class selectors target elements that have ALL those classes.
-   Horizontal (to-right) gradients only — vertical ones handled below.
-   ─────────────────────────────────────────────────────────────── */
-
-/* Heading gradient text & underlines (to right) */
-[data-theme="executive"] .from-indigo-400.to-cyan-400 {
-  background-image: linear-gradient(to right, #e8334a, #7a0612);
-}
-[data-theme="executive"] .from-indigo-300.to-cyan-300 {
-  background-image: linear-gradient(to right, #f47585, #c04060);
-}
-[data-theme="executive"] .from-indigo-500.to-cyan-400 {
-  background-image: linear-gradient(to right, #cc0a1f, #7a0612);
-}
-[data-theme="executive"] .from-indigo-500.to-cyan-500 {
-  background-image: linear-gradient(to right, #cc0a1f, #5a0410);
-}
-[data-theme="executive"] .from-indigo-400.to-cyan-500 {
-  background-image: linear-gradient(to right, #e8334a, #5a0410);
-}
-
-/* Hero name gradient (3-stop) */
-[data-theme="executive"] .from-indigo-400.via-purple-400.to-cyan-400 {
-  background-image: linear-gradient(to right, #e8334a, #cc0a1f, #7a0612);
-}
-
-/* Hero avatar background (to bottom-right) */
-[data-theme="executive"] .from-indigo-600.via-violet-600.to-cyan-500 {
-  background-image: linear-gradient(to bottom right, #a3081c, #7a0612, #5a0410);
-}
-
-/* Vertical card gradient backgrounds */
-[data-theme="executive"] .from-indigo-500\/10.to-transparent {
-  background-image: linear-gradient(to bottom, rgba(204,10,31,0.10), transparent);
-}
-[data-theme="executive"] .from-cyan-500\/10.to-transparent {
-  background-image: linear-gradient(to bottom, rgba(122,6,18,0.10), transparent);
-}
-[data-theme="executive"] .from-violet-500\/10.to-transparent {
-  background-image: linear-gradient(to bottom, rgba(163,8,28,0.10), transparent);
-}
-[data-theme="executive"] .from-indigo-500\/20.to-indigo-500\/5 {
-  background-image: linear-gradient(to bottom, rgba(204,10,31,0.20), rgba(204,10,31,0.05));
-}
-[data-theme="executive"] .from-cyan-500\/20.to-cyan-500\/5 {
-  background-image: linear-gradient(to bottom, rgba(122,6,18,0.20), rgba(122,6,18,0.05));
-}
-[data-theme="executive"] .from-violet-500\/20.to-violet-500\/5 {
-  background-image: linear-gradient(to bottom, rgba(163,8,28,0.20), rgba(163,8,28,0.05));
-}
-
-/* Bottom accent bar on education card */
-[data-theme="executive"] .from-indigo-500.to-cyan-400.h-\[2px\] {
-  background-image: linear-gradient(to right, #cc0a1f, #7a0612);
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-faint);
 }

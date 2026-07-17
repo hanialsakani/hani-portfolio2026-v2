@@ -1,36 +1,59 @@
-import ParticleBackground from "@/app/components/ParticleBackground";
 import Navbar from "@/app/components/Navbar";
-import HeroSection from "@/app/components/HeroSection";
-import AboutSection from "@/app/components/AboutSection";
-import AchievementsSection from "@/app/components/AchievementsSection";
-import SkillsSection from "@/app/components/SkillsSection";
-import ExperienceSection from "@/app/components/ExperienceSection";
-import CertificationsSection from "@/app/components/CertificationsSection";
-import EducationSection from "@/app/components/EducationSection";
-import ContactSection from "@/app/components/ContactSection";
-import MarqueeSection from "@/app/components/MarqueeSection";
+import Footer from "@/app/components/Footer";
+import Hero from "@/app/components/sections/Hero";
+import About from "@/app/components/sections/About";
+import Impact from "@/app/components/sections/Impact";
+import CaseFiles from "@/app/components/sections/CaseFiles";
+import Experience from "@/app/components/sections/Experience";
+import Skills from "@/app/components/sections/Skills";
+import Credentials from "@/app/components/sections/Credentials";
+import Contact from "@/app/components/sections/Contact";
+import { SITE, SITE_URL } from "@/content/site";
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.name,
+  jobTitle: "Business Analyst",
+  description: SITE.description,
+  email: `mailto:${SITE.email}`,
+  url: SITE_URL,
+  sameAs: [SITE.linkedin.url],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Greater London",
+    addressCountry: "GB",
+  },
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "Kingston University" },
+    { "@type": "CollegeOrUniversity", name: "The Open University" },
+  ],
+  hasCredential: {
+    "@type": "EducationalOccupationalCredential",
+    name: "ECBA – Entry Certificate in Business Analysis",
+    recognizedBy: { "@type": "Organization", name: "IIBA" },
+  },
+};
 
 export default function Home() {
   return (
-    <main className="relative">
-      <ParticleBackground />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <Navbar />
-      <HeroSection />
-      <div className="section-divider" />
-      <AboutSection />
-      <div className="section-divider" />
-      <AchievementsSection />
-      <div className="section-divider" />
-      <SkillsSection />
-      <div className="section-divider" />
-      <ExperienceSection />
-      <div className="section-divider" />
-      <CertificationsSection />
-      <div className="section-divider" />
-      <EducationSection />
-      <div className="section-divider" />
-      <ContactSection />
-      <MarqueeSection />
-    </main>
+      <main>
+        <Hero />
+        <About />
+        <Impact />
+        <CaseFiles />
+        <Experience />
+        <Skills />
+        <Credentials />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 }
