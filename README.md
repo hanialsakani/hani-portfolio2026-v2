@@ -28,8 +28,13 @@ Your post body in plain markdown…
   strip, the RSS feed (`/rss.xml`) and the sitemap. Nothing else to update.
 - Cross-post to LinkedIn: paste the first lines there with a link — every
   article page has a one-click LinkedIn share button too.
+- Attachments: put the file in `public/posts/` and add
+  `attachment: /posts/my-file.png` (+ optional `attachmentLabel:`) to the
+  frontmatter. Images show as an inline preview; other files as a download chip.
+- Start from `content/posts/_TEMPLATE.md` — copy it, rename, fill in.
+  (Files starting with `_` are ignored by the site.)
 
-The four posts currently in `content/posts/` are editable starter samples.
+The five posts currently in `content/posts/` are editable starter samples.
 
 ## Updating career data (no code required)
 
@@ -41,11 +46,6 @@ The four posts currently in `content/posts/` are editable starter samples.
 | `content/skills.ts` | Skill groups + proficiency (drives the heat matrix) |
 | `content/credentials.ts` | Education and certifications |
 | `content/projects.ts` | Case studies — section + nav link appear automatically once the first project is added |
-
-### CV download
-
-Place your PDF at `public/cv/Hani-Alsakani-CV.pdf` — every "Download CV"
-button already points there.
 
 ### Before deploying
 

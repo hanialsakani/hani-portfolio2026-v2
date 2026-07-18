@@ -91,11 +91,10 @@ export default function Hero() {
                 Let&apos;s talk →
               </a>
               <a
-                href={SITE.cvPath}
-                download
+                href="/insights"
                 className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
               >
-                Download CV ↓
+                Read my insights
               </a>
             </motion.div>
 

@@ -32,8 +32,6 @@ export const SITE = {
   standfirst:
     "ECBA-certified analyst and MSc Business Analytics candidate at Kingston University. I translate complex data into decisions executives can act on — and document the results.",
   responseNote: "I typically respond within 24 hours",
-  // Place the PDF at public/cv/Hani-Alsakani-CV.pdf to activate the download.
-  cvPath: "/cv/Hani-Alsakani-CV.pdf",
   heroSkills: ["Power BI", "SQL", "Python", "Agile", "Tableau", "Looker", "ECBA"],
   description:
     "Professional portfolio of Hani Alsakani — Business Analyst and Data Analytics specialist based in Greater London, UK. ECBA certified with expertise in Tableau, Power BI, SQL, and process optimisation.",

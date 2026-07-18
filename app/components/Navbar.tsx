@@ -93,13 +93,6 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <a
-              href={SITE.cvPath}
-              download
-              className="ml-2 px-3.5 py-1.5 rounded-lg text-[13px] font-semibold border border-ink text-ink hover:bg-ink hover:text-bg transition-colors"
-            >
-              CV ↓
-            </a>
             <span className="ml-2">
               <ThemeToggle />
             </span>
@@ -143,13 +136,6 @@ export default function Navbar() {
                   <span className="text-chart-orange text-xs" aria-hidden="true">→</span>
                 </Link>
               ))}
-              <a
-                href={SITE.cvPath}
-                download
-                className="mt-3 mb-1 text-center text-sm font-semibold px-3 py-2.5 border border-ink text-ink rounded-lg"
-              >
-                Download CV ↓
-              </a>
             </div>
           </motion.div>
         )}

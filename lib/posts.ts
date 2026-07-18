@@ -46,7 +46,7 @@ export function getAllPosts(): Post[] {
 
   const posts = fs
     .readdirSync(POSTS_DIR)
-    .filter((f) => f.endsWith(".md"))
+    .filter((f) => f.endsWith(".md") && !f.startsWith("_"))
     .map((file) => {
       const raw = fs.readFileSync(path.join(POSTS_DIR, file), "utf8");
       const { data, content } = matter(raw);

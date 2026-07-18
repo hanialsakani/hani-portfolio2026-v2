@@ -29,15 +29,6 @@ function RssIcon() {
   );
 }
 
-function DownloadIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 shrink-0" aria-hidden="true">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <path d="m7 10 5 5 5-5" />
-      <path d="M12 15V3" />
-    </svg>
-  );
-}
 
 export default function Footer() {
   return (
@@ -102,12 +93,6 @@ export default function Footer() {
                 <a href="/rss.xml" className="inline-flex items-center gap-2.5 text-sm text-ink-soft hover:text-chart-orange transition-colors">
                   <RssIcon />
                   RSS feed
-                </a>
-              </li>
-              <li>
-                <a href={SITE.cvPath} download className="inline-flex items-center gap-2.5 text-sm text-ink-soft hover:text-chart-green transition-colors">
-                  <DownloadIcon />
-                  Download CV
                 </a>
               </li>
             </ul>
