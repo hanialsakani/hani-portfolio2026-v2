@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import GaugeRing from "@/app/components/ui/GaugeRing";
 import Counter from "@/app/components/ui/Counter";
@@ -90,12 +91,12 @@ export default function Hero() {
               >
                 Let&apos;s talk →
               </a>
-              <a
+              <Link
                 href="/insights"
                 className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
               >
                 Read my insights
-              </a>
+              </Link>
             </motion.div>
 
             <motion.p
