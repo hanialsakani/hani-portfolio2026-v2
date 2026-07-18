@@ -1,13 +1,15 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Hero from "@/app/components/sections/Hero";
-import About from "@/app/components/sections/About";
+import LatestInsights from "@/app/components/sections/LatestInsights";
 import Impact from "@/app/components/sections/Impact";
+import About from "@/app/components/sections/About";
 import CaseFiles from "@/app/components/sections/CaseFiles";
 import Experience from "@/app/components/sections/Experience";
 import Skills from "@/app/components/sections/Skills";
 import Credentials from "@/app/components/sections/Credentials";
 import Contact from "@/app/components/sections/Contact";
+import { getAllPosts } from "@/lib/posts";
 import { SITE, SITE_URL } from "@/content/site";
 
 const personJsonLd = {
@@ -36,6 +38,8 @@ const personJsonLd = {
 };
 
 export default function Home() {
+  const posts = getAllPosts();
+
   return (
     <>
       <script
@@ -45,8 +49,9 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <About />
+        <LatestInsights posts={posts} />
         <Impact />
+        <About />
         <CaseFiles />
         <Experience />
         <Skills />

@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTheme } from "@/app/contexts/ThemeContext";
-import { CHAPTERS } from "@/app/components/chapters";
+import { NAV_ITEMS, SECTIONS } from "@/app/components/chapters";
 import { SITE } from "@/content/site";
 
 function SunIcon() {
@@ -29,7 +31,7 @@ function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
-      className="w-8 h-8 flex items-center justify-center rounded-sm border border-hairline text-ink-soft hover:text-ink hover:border-ink-faint transition-colors"
+      className="w-8 h-8 flex items-center justify-center rounded-lg border border-line text-ink-soft hover:text-ink hover:border-ink-faint transition-colors"
     >
       {theme === "light" ? <MoonIcon /> : <SunIcon />}
     </button>
@@ -39,9 +41,12 @@ function ThemeToggle() {
 export default function Navbar() {
   const [activeId, setActiveId] = useState<string>("");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
   const reduce = useReducedMotion();
+  const onInsights = pathname.startsWith("/insights");
 
   useEffect(() => {
+    if (onInsights) return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -50,45 +55,54 @@ export default function Navbar() {
       },
       { rootMargin: "-40% 0px -55% 0px" }
     );
-    for (const { id } of CHAPTERS) {
+    for (const { id } of SECTIONS) {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     }
     return () => observer.disconnect();
-  }, []);
+  }, [onInsights]);
+
+  const isActive = (item: (typeof NAV_ITEMS)[number]) =>
+    item.id === "insights" ? onInsights : !onInsights && activeId === item.id;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-md border-b border-hairline">
-      <nav className="max-w-5xl mx-auto px-5 sm:px-6" aria-label="Main">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-bg/85 backdrop-blur-md border-b border-line">
+      <nav className="max-w-6xl mx-auto px-5 sm:px-6" aria-label="Main">
         <div className="flex items-center justify-between h-14">
-          <a href="#top" className="font-serif font-semibold text-lg text-ink">
+          <Link href="/" className="font-display font-bold text-lg tracking-tight text-ink flex items-center gap-2">
+            <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true">
+              <polyline points="1,13 6,10 11,11 16,5 21,2" fill="none" stroke="var(--chart-blue)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="21" cy="2" r="2.2" fill="var(--chart-orange)" />
+            </svg>
             {SITE.name}
-          </a>
+          </Link>
 
           {/* Desktop */}
-          <div className="hidden md:flex items-center gap-5">
-            {CHAPTERS.map(({ id, label }) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                aria-current={activeId === id ? "true" : undefined}
-                className={`font-mono text-[11px] tracking-[0.14em] uppercase transition-colors ${
-                  activeId === id
-                    ? "text-navy border-b border-brass-soft pb-0.5"
-                    : "text-ink-faint hover:text-ink"
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                aria-current={isActive(item) ? "true" : undefined}
+                className={`px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors ${
+                  isActive(item)
+                    ? "text-chart-blue bg-chart-blue-soft"
+                    : "text-ink-soft hover:text-ink"
                 }`}
               >
-                {label}
-              </a>
+                {item.label}
+              </Link>
             ))}
             <a
               href={SITE.cvPath}
               download
-              className="font-mono text-[11px] tracking-[0.14em] uppercase px-3 py-1.5 border border-ink text-ink rounded-sm hover:bg-ink hover:text-paper transition-colors"
+              className="ml-2 px-3.5 py-1.5 rounded-lg text-[13px] font-semibold border border-ink text-ink hover:bg-ink hover:text-bg transition-colors"
             >
               CV ↓
             </a>
-            <ThemeToggle />
+            <span className="ml-2">
+              <ThemeToggle />
+            </span>
           </div>
 
           {/* Mobile */}
@@ -100,18 +114,9 @@ export default function Navbar() {
               aria-expanded={mobileOpen}
               className="flex flex-col justify-center gap-[5px] w-8 h-8"
             >
-              <motion.span
-                animate={mobileOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-                className="block w-full h-px bg-ink origin-center"
-              />
-              <motion.span
-                animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-                className="block w-full h-px bg-ink"
-              />
-              <motion.span
-                animate={mobileOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-                className="block w-full h-px bg-ink origin-center"
-              />
+              <motion.span animate={mobileOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }} className="block w-full h-[1.5px] bg-ink origin-center" />
+              <motion.span animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }} className="block w-full h-[1.5px] bg-ink" />
+              <motion.span animate={mobileOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }} className="block w-full h-[1.5px] bg-ink origin-center" />
             </button>
           </div>
         </div>
@@ -124,26 +129,24 @@ export default function Navbar() {
             animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
             exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
             transition={{ duration: 0.22 }}
-            className="md:hidden overflow-hidden bg-paper border-t border-hairline"
+            className="md:hidden overflow-hidden bg-bg border-t border-line"
           >
             <div className="px-5 py-3 flex flex-col">
-              {CHAPTERS.map(({ id, label }) => (
-                <a
-                  key={id}
-                  href={`#${id}`}
+              {NAV_ITEMS.map((item) => (
+                <Link
+                  key={item.id}
+                  href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-baseline justify-between py-3 border-b border-hairline font-mono text-xs tracking-[0.14em] uppercase text-ink-soft hover:text-ink"
+                  className="flex items-baseline justify-between py-3 border-b border-line text-sm font-medium text-ink-soft hover:text-ink"
                 >
-                  {label}
-                  <span className="text-brass text-[10px]" aria-hidden="true">
-                    →
-                  </span>
-                </a>
+                  {item.label}
+                  <span className="text-chart-orange text-xs" aria-hidden="true">→</span>
+                </Link>
               ))}
               <a
                 href={SITE.cvPath}
                 download
-                className="mt-3 mb-1 text-center font-mono text-xs tracking-[0.14em] uppercase px-3 py-2.5 border border-ink text-ink rounded-sm"
+                className="mt-3 mb-1 text-center text-sm font-semibold px-3 py-2.5 border border-ink text-ink rounded-lg"
               >
                 Download CV ↓
               </a>

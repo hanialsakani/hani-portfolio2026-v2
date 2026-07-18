@@ -1,25 +1,29 @@
 import { PROJECTS } from "@/content/projects";
 
 /**
- * The report's table of contents. Navbar links, section anchors and
- * chapter numbers all derive from this list, so adding a section (or
- * publishing the first case study) renumbers everything automatically.
+ * Site navigation config. Section links use "/#id" so they work from
+ * any page; the Insights link is a real page. Nav, footer and section
+ * ordering all derive from here.
  */
-export interface Chapter {
+export interface NavItem {
   id: string;
   label: string;
+  href: string;
 }
 
-export const CHAPTERS: Chapter[] = [
-  { id: "about", label: "About" },
-  { id: "impact", label: "Impact" },
-  ...(PROJECTS.length > 0 ? [{ id: "case-files", label: "Case Files" }] : []),
-  { id: "experience", label: "Experience" },
-  { id: "skills", label: "Skills" },
-  { id: "credentials", label: "Credentials" },
-  { id: "contact", label: "Contact" },
+export const SECTIONS: NavItem[] = [
+  { id: "impact", label: "Impact", href: "/#impact" },
+  { id: "about", label: "About", href: "/#about" },
+  ...(PROJECTS.length > 0
+    ? [{ id: "case-files", label: "Case Studies", href: "/#case-files" }]
+    : []),
+  { id: "experience", label: "Experience", href: "/#experience" },
+  { id: "skills", label: "Skills", href: "/#skills" },
+  { id: "credentials", label: "Credentials", href: "/#credentials" },
+  { id: "contact", label: "Contact", href: "/#contact" },
 ];
 
-export function chapterNumber(id: string): string {
-  return String(CHAPTERS.findIndex((c) => c.id === id) + 1).padStart(2, "0");
-}
+export const NAV_ITEMS: NavItem[] = [
+  ...SECTIONS,
+  { id: "insights", label: "Insights", href: "/insights" },
+];

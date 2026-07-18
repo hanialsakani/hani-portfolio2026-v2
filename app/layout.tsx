@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Newsreader, Public_Sans, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Public_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/app/contexts/ThemeContext";
-import ProgressBar from "@/app/components/ProgressBar";
 import { SITE, SITE_URL } from "@/content/site";
 
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["500", "600", "700", "800"],
 });
 
 const publicSans = Public_Sans({
@@ -26,13 +24,15 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `${SITE.name} | ${SITE.role}`,
+  title: {
+    default: `${SITE.name} | ${SITE.role}`,
+    template: `%s | ${SITE.name}`,
+  },
   description: SITE.description,
   keywords: [...SITE.keywords],
   authors: [{ name: SITE.name }],
-  alternates: { canonical: "/" },
   openGraph: {
-    type: "profile",
+    type: "website",
     url: "/",
     siteName: SITE.name,
     title: `${SITE.name} | ${SITE.role}`,
@@ -45,8 +45,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Applies the stored theme (or the OS preference) before first paint so
-// there is no flash of the wrong theme.
+// Applies the stored theme (or OS preference) before first paint.
 const INIT_THEME_SCRIPT = `try{var t=localStorage.getItem('portfolio-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}`;
 
 export default function RootLayout({
@@ -58,14 +57,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${newsreader.variable} ${publicSans.variable} ${jetbrainsMono.variable}`}
+      className={`${bricolage.variable} ${publicSans.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen antialiased">
         <script dangerouslySetInnerHTML={{ __html: INIT_THEME_SCRIPT }} />
-        <ThemeProvider>
-          <ProgressBar />
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

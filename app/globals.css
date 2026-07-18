@@ -1,58 +1,56 @@
 @import "tailwindcss";
 
-/* ── "Ledger & Brass" token system ─────────────────────────────────
-   Components style themselves exclusively through these tokens (via
-   the Tailwind mappings below). Adding or changing a theme means
-   editing one block here — never touching a component.
+/* ── "Living Charts" token system ─────────────────────────────────
+   Bright editorial data-art. Three chart hues carry the identity:
+   blue (primary), green (positive/status), orange (highlight).
+   Components style themselves only through these tokens — adding or
+   tuning a theme is one CSS block, never a component change.
    ────────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Day ledger (light — default) */
-  --paper: #f2f5f9;
+  /* Daylight (light — default) */
+  --bg: #fbfbfd;
   --surface: #ffffff;
-  --ink: #0c1b33;
-  --ink-soft: #44536b;
-  --ink-faint: #5f6f88;
-  --hairline: #d7dfe9;
-  --navy: #1b3a66;
-  --navy-bright: #2d598f;
-  --navy-wash: #e4ecf6;
-  --brass: #8f6a2a;
-  --brass-soft: #a97e35;
-  --good: #2e7d5b;
+  --ink: #141824;
+  --ink-soft: #4b5368;
+  --ink-faint: #737d93;
+  --line: #e4e7ee;
+  --chart-blue: #3b5bd0;
+  --chart-blue-soft: #dfe6f9;
+  --chart-green: #0e9d72;
+  --chart-orange: #d97a1f;
+  --grid: #eef0f5;
 }
 
 [data-theme="dark"] {
-  /* Night edition (dark) */
-  --paper: #0b1524;
-  --surface: #101d31;
-  --ink: #e7edf6;
-  --ink-soft: #a9b8cf;
-  --ink-faint: #8296b2;
-  --hairline: #23344e;
-  --navy: #8fb4e4;
-  --navy-bright: #a9c6ec;
-  --navy-wash: #16263e;
-  --brass: #d5a961;
-  --brass-soft: #b08540;
-  --good: #57b48c;
+  /* After-hours (dark) */
+  --bg: #0d1120;
+  --surface: #151b2e;
+  --ink: #eceff7;
+  --ink-soft: #a8b1c6;
+  --ink-faint: #768199;
+  --line: #262e45;
+  --chart-blue: #7d97e8;
+  --chart-blue-soft: #1d2742;
+  --chart-green: #3fc492;
+  --chart-orange: #e89b4f;
+  --grid: #1a2138;
 }
 
 @theme inline {
-  --color-paper: var(--paper);
+  --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-ink-faint: var(--ink-faint);
-  --color-hairline: var(--hairline);
-  --color-navy: var(--navy);
-  --color-navy-bright: var(--navy-bright);
-  --color-navy-wash: var(--navy-wash);
-  --color-brass: var(--brass);
-  --color-brass-soft: var(--brass-soft);
-  --color-good: var(--good);
+  --color-line: var(--line);
+  --color-chart-blue: var(--chart-blue);
+  --color-chart-blue-soft: var(--chart-blue-soft);
+  --color-chart-green: var(--chart-green);
+  --color-chart-orange: var(--chart-orange);
+  --color-grid: var(--grid);
 
-  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-display: var(--font-bricolage), system-ui, sans-serif;
   --font-sans: var(--font-public-sans), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
@@ -73,40 +71,144 @@ html {
 }
 
 body {
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
-  background: var(--navy);
-  color: var(--paper);
+  background: var(--chart-blue);
+  color: var(--bg);
 }
 
 :focus-visible {
-  outline: 2px solid var(--navy);
+  outline: 2px solid var(--chart-blue);
   outline-offset: 2px;
 }
 
-/* Anchor targets clear the sticky masthead */
 section[id] {
   scroll-margin-top: 4.5rem;
 }
 
-/* Numerals line up in stat ledgers and date columns */
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/* Faint plotting grid behind the page — the site lives on graph paper */
+.chart-grid-bg {
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Draw-in animation for SVG chart strokes */
+@media (prefers-reduced-motion: no-preference) {
+  .draw-path {
+    stroke-dasharray: var(--path-len, 1200);
+    stroke-dashoffset: var(--path-len, 1200);
+    animation: draw 1.6s ease-out 0.3s forwards;
+  }
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .fade-late {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 1.5s forwards;
+  }
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Post body typography (rendered markdown on article pages) */
+.prose-post {
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+.prose-post h2,
+.prose-post h3 {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 1.6em 0 0.5em;
+}
+.prose-post h2 {
+  font-size: 1.35rem;
+}
+.prose-post h3 {
+  font-size: 1.1rem;
+}
+.prose-post p {
+  margin: 0.9em 0;
+}
+.prose-post a {
+  color: var(--chart-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-post strong {
+  color: var(--ink);
+}
+.prose-post ul,
+.prose-post ol {
+  padding-left: 1.4em;
+  margin: 0.9em 0;
+}
+.prose-post li {
+  margin: 0.3em 0;
+}
+.prose-post blockquote {
+  border-left: 3px solid var(--chart-orange);
+  padding-left: 1em;
+  color: var(--ink-faint);
+  margin: 1.2em 0;
+}
+.prose-post code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--chart-blue-soft);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+}
+.prose-post pre {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1em 1.2em;
+  overflow-x: auto;
+  margin: 1.2em 0;
+}
+.prose-post pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.prose-post img {
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.prose-post hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 1.6em 0;
 }
 
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--paper);
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--hairline);
+  background: var(--line);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {

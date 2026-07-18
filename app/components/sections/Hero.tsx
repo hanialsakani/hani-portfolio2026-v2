@@ -2,184 +2,184 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import GaugeRing from "@/app/components/ui/GaugeRing";
 import Counter from "@/app/components/ui/Counter";
-import { chapterNumber } from "@/app/components/chapters";
 import { SITE } from "@/content/site";
-import { ACHIEVEMENTS } from "@/content/achievements";
 
 const container: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
 };
 
-/** The cover page of the report. */
+/** Career trajectory drawn behind the headline — rises 2012 → now. */
+function CareerArea() {
+  const line =
+    "M0,150 L55,142 L110,145 L165,126 L220,130 L275,102 L330,108 L385,78 L440,63 L495,40 L550,28 L600,16";
+  return (
+    <svg
+      className="absolute inset-x-0 bottom-0 w-full h-[62%] pointer-events-none"
+      viewBox="0 0 600 170"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="hero-area" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="var(--chart-blue)" stopOpacity="0.22" />
+          <stop offset="1" stopColor="var(--chart-blue)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path d={`${line} L600,170 L0,170 Z`} fill="url(#hero-area)" className="fade-late" />
+      <path
+        d={line}
+        fill="none"
+        stroke="var(--chart-blue)"
+        strokeWidth="2.5"
+        className="draw-path"
+        style={{ ["--path-len" as string]: "700" }}
+      />
+      <circle cx="600" cy="16" r="5" fill="var(--chart-orange)" className="fade-late" />
+    </svg>
+  );
+}
+
 export default function Hero() {
   const reduce = useReducedMotion();
   const item: Variants = {
     hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 18 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.55, ease: "easeOut" },
-    },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
   };
-  // Cover shows the three headline figures; Chapter 02 tells the stories.
-  const coverStats = ACHIEVEMENTS.slice(0, 3);
 
   return (
-    <section id="top" className="pt-14">
+    <section id="top" className="relative pt-14 overflow-hidden chart-grid-bg">
+      <CareerArea />
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="max-w-5xl mx-auto px-5 sm:px-6 pt-12 sm:pt-16 pb-16"
+        className="relative max-w-6xl mx-auto px-5 sm:px-6 pt-14 sm:pt-20 pb-24 sm:pb-32"
       >
-        {/* Cover rule */}
-        <motion.div
-          variants={item}
-          className="flex flex-wrap items-baseline justify-between gap-2 border-b-2 border-ink pb-3 mb-10"
-        >
-          <span className="font-mono text-[10px] sm:text-[11px] tracking-[0.16em] uppercase text-ink-soft">
-            {SITE.folio}
-          </span>
-          <span className="font-mono text-[10px] sm:text-[11px] tracking-[0.16em] uppercase text-ink-faint">
-            {SITE.location}
-          </span>
-        </motion.div>
-
-        <div className="grid md:grid-cols-[1fr_280px] gap-10 md:gap-14 items-start">
-          {/* Text column */}
+        <div className="grid md:grid-cols-[1fr_260px] gap-10 md:gap-14 items-start">
           <div>
             <motion.p
               variants={item}
-              className="font-mono text-[11px] sm:text-xs tracking-[0.2em] uppercase text-navy mb-6"
+              className="font-mono text-[11px] sm:text-xs tracking-[0.18em] uppercase text-chart-blue mb-5"
             >
-              {SITE.kicker} — <span className="text-brass">{SITE.availability}</span>
+              {SITE.kicker} · London&ensp;
+              <span className="text-chart-green">▲ trending since 2012</span>
             </motion.p>
 
             <motion.h1
               variants={item}
-              className="font-serif font-medium text-[2.5rem] leading-[1.06] sm:text-6xl lg:text-[4.25rem] text-ink [text-wrap:balance] mb-6 max-w-[17ch]"
+              className="font-display font-extrabold text-[2.6rem] leading-[1.02] sm:text-6xl lg:text-[4.4rem] tracking-tight text-ink [text-wrap:balance] mb-6 max-w-[16ch]"
             >
-              {SITE.headline.lead}
-              <em className="text-navy not-italic border-b-[3px] border-brass-soft">
-                {SITE.headline.emphasis}
-              </em>
-              {SITE.headline.tail}
+              My career is a chart that only goes{" "}
+              <span className="text-chart-blue">up and to the right.</span>
             </motion.h1>
 
             <motion.p
               variants={item}
-              className="text-ink-soft text-[15px] sm:text-base leading-relaxed max-w-[52ch] mb-5"
+              className="text-ink-soft text-[15px] sm:text-base leading-relaxed max-w-[52ch] mb-7"
             >
-              {SITE.standfirst}
-            </motion.p>
-
-            <motion.p
-              variants={item}
-              className="font-mono text-[11px] tracking-[0.08em] text-ink-faint mb-8"
-            >
-              {SITE.heroSkills.join(" · ")}
+              {SITE.name} — {SITE.standfirst}
             </motion.p>
 
             <motion.div variants={item} className="flex flex-wrap gap-3 mb-8">
               <a
                 href="#contact"
-                className="px-6 py-3 bg-navy text-paper font-medium text-sm rounded-sm hover:bg-navy-bright transition-colors"
+                className="px-6 py-3 bg-chart-blue text-white font-semibold text-sm rounded-xl hover:opacity-90 active:scale-[0.98] transition-all"
               >
-                Get in touch
+                Let&apos;s talk →
               </a>
               <a
                 href={SITE.cvPath}
                 download
-                className="px-6 py-3 border border-hairline text-ink font-medium text-sm rounded-sm hover:border-ink transition-colors"
+                className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
               >
                 Download CV ↓
               </a>
             </motion.div>
 
-            <motion.div
+            <motion.p
               variants={item}
-              className="flex flex-wrap items-center gap-x-5 gap-y-1.5 font-mono text-[11px] text-ink-faint"
+              className="font-mono text-[11px] tracking-[0.06em] text-ink-faint"
             >
-              <a href={`mailto:${SITE.email}`} className="hover:text-navy transition-colors">
+              {SITE.heroSkills.join(" · ")} &ensp;·&ensp;{" "}
+              <a href={`mailto:${SITE.email}`} className="hover:text-chart-blue transition-colors">
                 {SITE.email}
-              </a>
+              </a>{" "}
+              ·{" "}
               <a
                 href={SITE.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-navy transition-colors"
+                className="hover:text-chart-blue transition-colors"
               >
                 LinkedIn ↗
               </a>
-            </motion.div>
+            </motion.p>
           </div>
 
-          {/* Portrait */}
-          <motion.figure variants={item} className="mx-auto md:mx-0 max-w-[280px] w-full">
-            <div className="bg-surface border border-hairline p-2.5 shadow-sm">
+          {/* Portrait + status */}
+          <motion.figure variants={item} className="mx-auto md:mx-0 w-full max-w-[240px]">
+            <div className="relative bg-surface border border-line rounded-2xl p-2.5 shadow-sm">
               <Image
                 src="/profile.webp"
                 alt={`Portrait of ${SITE.name}`}
                 width={640}
                 height={640}
                 priority
-                className="w-full h-auto"
+                className="w-full h-auto rounded-xl"
               />
-            </div>
-            <figcaption className="mt-3 font-mono text-[10px] tracking-[0.12em] uppercase text-ink-faint leading-relaxed">
-              {SITE.shortName} — London, 2026
-              <span className="block text-brass mt-0.5">
-                ECBA certified · MSc candidate, Kingston University
+              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap inline-flex items-center gap-1.5 bg-surface border border-line rounded-full px-3 py-1 text-[11px] font-semibold text-ink shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-chart-green inline-block" aria-hidden="true" />
+                {SITE.availability}
               </span>
+            </div>
+            <figcaption className="mt-5 text-center font-mono text-[10px] tracking-[0.1em] uppercase text-ink-faint">
+              ECBA · MSc Business Analytics &apos;26
             </figcaption>
           </motion.figure>
         </div>
 
-        {/* Stat ledger */}
-        <motion.div
-          variants={item}
-          className="grid grid-cols-3 border-t-2 border-ink mt-14"
-        >
-          {coverStats.map((s, i) => (
-            <div
-              key={s.label}
-              className={`py-5 pr-4 border-b border-hairline ${i > 0 ? "pl-4 sm:pl-6 border-l border-hairline" : ""}`}
-            >
-              <span className="block font-mono text-[9px] sm:text-[10px] tracking-[0.16em] uppercase text-brass mb-1.5">
-                Fig. {String(i + 1).padStart(2, "0")}
+        {/* Gauge strip */}
+        <motion.div variants={item} className="flex flex-wrap gap-3 sm:gap-4 mt-12">
+          <div className="flex items-center gap-3 bg-surface/85 backdrop-blur-sm border border-line rounded-2xl px-4 py-3">
+            <GaugeRing fraction={0.3} hue="blue" />
+            <span>
+              <span className="block font-display font-extrabold text-xl leading-tight text-ink tabular">
+                +<Counter value={30} suffix="%" />
               </span>
-              <p className="font-serif font-medium text-3xl sm:text-4xl lg:text-[2.75rem] text-navy leading-none mb-1.5">
-                <Counter value={s.value} suffix={s.suffix} />
-              </p>
-              <p className="text-xs sm:text-sm text-ink-soft">{s.label}</p>
-            </div>
-          ))}
+              <span className="text-[11px] text-ink-faint">decision efficiency</span>
+            </span>
+          </div>
+          <div className="flex items-center gap-3 bg-surface/85 backdrop-blur-sm border border-line rounded-2xl px-4 py-3">
+            <GaugeRing fraction={0.2} hue="green" />
+            <span>
+              <span className="block font-display font-extrabold text-xl leading-tight text-ink tabular">
+                −<Counter value={20} suffix="%" />
+              </span>
+              <span className="text-[11px] text-ink-faint">approval cycle time</span>
+            </span>
+          </div>
+          <div className="flex items-center gap-3 bg-surface/85 backdrop-blur-sm border border-line rounded-2xl px-4 py-3">
+            <GaugeRing fraction={0.83} hue="orange" />
+            <span>
+              <span className="block font-display font-extrabold text-xl leading-tight text-ink tabular">
+                <Counter value={16} suffix="K+" />
+              </span>
+              <span className="text-[11px] text-ink-faint">people reached</span>
+            </span>
+          </div>
+          <div className="flex items-center gap-3 bg-surface/85 backdrop-blur-sm border border-line rounded-2xl px-4 py-3">
+            <GaugeRing fraction={1} hue="blue" />
+            <span>
+              <span className="block font-display font-extrabold text-xl leading-tight text-ink tabular">
+                <Counter value={10} suffix="+" />
+              </span>
+              <span className="text-[11px] text-ink-faint">years experience</span>
+            </span>
+          </div>
         </motion.div>
-
-        {/* Sparkline caption */}
-        <motion.p
-          variants={item}
-          className="flex items-center gap-3 mt-5 text-xs text-ink-faint"
-        >
-          <svg width="72" height="20" viewBox="0 0 72 20" aria-hidden="true" className="shrink-0">
-            <polyline
-              points="1,16 12,13 23,14 34,9 45,10 56,5 71,3"
-              fill="none"
-              stroke="var(--navy)"
-              strokeWidth="1.6"
-            />
-            <circle cx="71" cy="3" r="2.3" fill="var(--brass-soft)" />
-          </svg>
-          <span>
-            Career trajectory, 2012—present — full record in{" "}
-            <a href="#experience" className="text-navy hover:underline">
-              Chapter {chapterNumber("experience")}, Experience
-            </a>
-            .
-          </span>
-        </motion.p>
       </motion.div>
     </section>
   );
