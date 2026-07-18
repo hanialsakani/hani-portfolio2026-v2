@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import ShareRow from "@/app/insights/[slug]/ShareRow";
+import Attachment from "@/app/insights/Attachment";
 import { getAllPosts, getPost, TYPE_META } from "@/lib/posts";
 import { SITE, SITE_URL } from "@/content/site";
 
@@ -107,6 +108,12 @@ export default async function PostPage({
               </p>
             )}
           </header>
+
+          {post.attachment && (
+            <div className="mb-8">
+              <Attachment attachment={post.attachment} large />
+            </div>
+          )}
 
           <div className="prose-post text-[15px]" dangerouslySetInnerHTML={{ __html: post.html }} />
 

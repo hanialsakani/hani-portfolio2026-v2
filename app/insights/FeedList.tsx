@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Reveal from "@/app/components/ui/Reveal";
 import Sparkline from "@/app/components/ui/Sparkline";
+import Attachment from "@/app/insights/Attachment";
 import { TYPE_META, type Post, type PostType } from "@/lib/post-types";
 
 const FILTERS: { key: PostType | "all"; label: string }[] = [
@@ -41,7 +42,9 @@ function PostCard({ post }: { post: Post }) {
         <span>·</span>
         <span>{post.readingMinutes} min</span>
       </p>
-      <Sparkline seed={post.slug} hue={meta.color as "blue" | "green" | "orange"} width={72} height={24} />
+      <span className="hidden min-[420px]:block">
+        <Sparkline seed={post.slug} hue={meta.color as "blue" | "green" | "orange"} width={72} height={24} />
+      </span>
     </div>
   );
 
@@ -67,6 +70,7 @@ function PostCard({ post }: { post: Post }) {
           className="prose-post text-sm"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
+        {post.attachment && <Attachment attachment={post.attachment} />}
         {tags}
       </article>
     );
@@ -81,6 +85,7 @@ function PostCard({ post }: { post: Post }) {
         </h2>
         <p className="text-sm text-ink-soft leading-relaxed">{post.excerpt}</p>
       </Link>
+      {post.attachment && <Attachment attachment={post.attachment} />}
       {tags}
     </article>
   );

@@ -2,9 +2,31 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
-import { INLINE_TYPES, type Post, type PostType } from "@/lib/post-types";
+import {
+  INLINE_TYPES,
+  type Post,
+  type PostAttachment,
+  type PostType,
+} from "@/lib/post-types";
 
 export { TYPE_META, INLINE_TYPES, type Post, type PostType } from "@/lib/post-types";
+
+const IMAGE_EXT = /\.(png|jpe?g|webp|gif|svg|avif)$/i;
+
+/** Frontmatter: `attachment: /files/report.pdf` (+ optional `attachmentLabel`). */
+function parseAttachment(data: Record<string, unknown>): PostAttachment | undefined {
+  if (typeof data.attachment !== "string" || data.attachment.length === 0) return undefined;
+  const url = data.attachment;
+  const fallback = url.split("/").pop() ?? url;
+  return {
+    url,
+    label:
+      typeof data.attachmentLabel === "string" && data.attachmentLabel.length > 0
+        ? data.attachmentLabel
+        : fallback,
+    kind: IMAGE_EXT.test(url) ? "image" : "file",
+  };
+}
 
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
@@ -58,6 +80,7 @@ export function getAllPosts(): Post[] {
             ? firstParagraph.slice(0, 217).trimEnd() + "…"
             : firstParagraph,
         hasPage: !INLINE_TYPES.includes(type),
+        attachment: parseAttachment(data),
       } satisfies Post;
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));

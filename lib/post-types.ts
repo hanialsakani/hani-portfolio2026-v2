@@ -13,6 +13,13 @@ export const TYPE_META: Record<PostType, { label: string; color: string }> = {
   toolbox: { label: "Toolbox", color: "blue" },
 };
 
+export interface PostAttachment {
+  url: string;
+  label: string;
+  /** Images render as an inline preview; files as a download chip */
+  kind: "image" | "file";
+}
+
 export interface Post {
   slug: string;
   title: string;
@@ -26,4 +33,6 @@ export interface Post {
   excerpt: string;
   /** True when the post gets its own /insights/[slug] page */
   hasPage: boolean;
+  /** Optional attachment declared in frontmatter */
+  attachment?: PostAttachment;
 }

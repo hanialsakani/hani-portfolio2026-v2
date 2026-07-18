@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" font-family="system-ui, sans-serif">
+  <rect width="560" height="300" fill="#fbfbfd"/>
+  <text x="28" y="36" font-size="15" font-weight="700" fill="#141824">London BA job posts mentioning each tool</text>
+  <text x="28" y="54" font-size="11" fill="#737d93">Sample chart — replace with your own · 2024–2026, indexed</text>
+  <g stroke="#e4e7ee" stroke-width="1">
+    <line x1="60" y1="90" x2="520" y2="90"/>
+    <line x1="60" y1="140" x2="520" y2="140"/>
+    <line x1="60" y1="190" x2="520" y2="190"/>
+    <line x1="60" y1="240" x2="520" y2="240"/>
+  </g>
+  <line x1="60" y1="240" x2="520" y2="240" stroke="#737d93" stroke-width="1.2"/>
+  <g font-size="10" fill="#737d93">
+    <text x="60" y="258" text-anchor="middle">2024</text>
+    <text x="175" y="258" text-anchor="middle">H2</text>
+    <text x="290" y="258" text-anchor="middle">2025</text>
+    <text x="405" y="258" text-anchor="middle">H2</text>
+    <text x="520" y="258" text-anchor="middle">2026</text>
+  </g>
+  <polyline points="60,196 175,178 290,150 405,122 520,96" fill="none" stroke="#3b5bd0" stroke-width="3" stroke-linecap="round"/>
+  <polyline points="60,170 175,172 290,176 405,180 520,184" fill="none" stroke="#c9ced9" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="520" cy="96" r="5" fill="#d97a1f"/>
+  <g font-size="11" font-weight="600">
+    <text x="452" y="84" fill="#3b5bd0">Power BI</text>
+    <text x="452" y="200" fill="#737d93">Tableau</text>
+  </g>
+</svg>
