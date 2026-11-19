@@ -174,7 +174,7 @@ export default function Hero() {
             <GaugeRing fraction={1} hue="blue" />
             <span>
               <span className="block font-display font-extrabold text-xl leading-tight text-ink tabular">
-                <Counter value={10} suffix="+" />
+                <Counter value={13} suffix="" />
               </span>
               <span className="text-[11px] text-ink-faint">years experience</span>
             </span>
