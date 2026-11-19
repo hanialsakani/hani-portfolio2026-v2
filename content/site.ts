@@ -4,9 +4,8 @@
  * never hardcode career data.
  */
 
-// Update to the real deployed domain before going live (used for
-// canonical URLs, Open Graph, sitemap and robots).
-export const SITE_URL = "https://hanialsakani.com";
+// Deployed domain (used for canonical URLs, Open Graph, sitemap and robots).
+export const SITE_URL = "https://hani-portfolio2026-v2.vercel.app";
 
 export const SITE = {
   name: "Hani Alsakani",
@@ -25,22 +24,22 @@ export const SITE = {
   folio: "Performance Review · 2012—2026",
   kicker: "Business Analyst · Data Analytics",
   headline: {
-    lead: "Ten years of turning operations into ",
+    lead: "Thirteen years of turning operations into ",
     emphasis: "measurable",
     tail: " decisions.",
   },
   standfirst:
-    "ECBA-certified analyst and MSc Business Analytics candidate at Kingston University. I translate complex data into decisions executives can act on — and document the results.",
+    "ECBA-certified business analyst with an MSc in Business Analytics (Distinction) from Kingston University. I translate complex data into decisions managers can act on — and document the results.",
   responseNote: "I typically respond within 24 hours",
-  heroSkills: ["Power BI", "SQL", "Python", "Agile", "Tableau", "Looker", "ECBA"],
+  heroSkills: ["SQL", "Looker Studio", "Python", "Excel", "Tableau", "UAT", "ECBA"],
   description:
-    "Professional portfolio of Hani Alsakani — Business Analyst and Data Analytics specialist based in Greater London, UK. ECBA certified with expertise in Tableau, Power BI, SQL, and process optimisation.",
+    "Professional portfolio of Hani Alsakani — Business Analyst and Data Analytics specialist based in Greater London, UK. ECBA certified, MSc Business Analytics (Distinction), working with SQL, Looker Studio, Python and Excel on requirements, dashboards and process improvement.",
   keywords: [
     "Business Analyst",
     "Data Analytics",
-    "Tableau",
-    "Power BI",
+    "Looker Studio",
     "SQL",
+    "Python",
     "ECBA",
     "London",
   ],
@@ -56,12 +55,12 @@ export const QUICK_FACTS = [
 
 export const ABOUT_PARAGRAPHS = [
   {
-    text: "I am a results-driven {Business Analyst} and {Data Analytics} professional with a proven track record in data-driven decision making, business process optimisation, and executive stakeholder engagement. I combine technical expertise with sharp business acumen to translate complex data into actionable decisions.",
+    text: "I am a {Business Analyst} and {Data Analytics} professional. The two things I enjoy most are understanding how people really work and translating that, in English or Arabic, into requirements, dashboards and processes that teams actually adopt.",
   },
   {
-    text: "My career spans over {10 years} across IT business analysis, project management, and administrative leadership roles, where I delivered a {30% efficiency improvement}, achieved {20% faster approval cycles}, and supported programmes for over {16,000 participants}.",
+    text: "My career spans {13 years}, including {4+ years of business analysis}, across IT business analysis, project coordination and administrative leadership. Highlights include a {30% improvement in decision-making efficiency} from dashboards I designed for a non-profit, {20% shorter approval bottlenecks} after a workflow gap analysis, and reporting for programmes reaching over {16,000 participants}.",
   },
   {
-    text: "Currently pursuing an {MSc in Business Analytics} at Kingston University (2025–2026), I am deepening my expertise in advanced analytics and machine learning to drive even greater impact.",
+    text: "I completed an {MSc in Business Analytics with Distinction} at Kingston University (2025–2026), where my dissertation processed 879,587 UK public procurement records in SQL and used Python for econometric analysis.",
   },
 ] as const;

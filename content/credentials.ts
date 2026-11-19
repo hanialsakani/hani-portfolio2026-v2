@@ -15,31 +15,31 @@ export interface Certification {
 
 export const EDUCATION: Education[] = [
   {
-    degree: "MSc Business Analytics",
+    degree: "MSc Business Analytics (Distinction)",
     institution: "Kingston University",
     period: "2025 – 2026",
     location: "London, UK",
-    current: true,
+    current: false,
     description:
-      "Advanced modules in data science, machine learning, business intelligence and strategic analytics.",
+      "Awarded with Distinction. Dissertation: The Influence of Geopolitical Risk Drivers on UK Business Performance (SQL processing of 879,587 procurement records, econometric analysis in Python). Modules included machine learning and business intelligence.",
   },
   {
-    degree: "BSc Information Technology",
+    degree: "BSc Information Technology and Computing",
     institution: "The Open University",
     period: "Completed",
     location: "UK",
     current: false,
     description:
-      "Comprehensive study of software engineering, networking, databases and IT management.",
+      "Second Class Honours (2nd Division).",
   },
   {
-    degree: "Level 2 Award in IT",
-    institution: "Just IT",
+    degree: "Level 2 Diploma in Digital and IT Skills",
+    institution: "Just IT Training",
     period: "Completed",
     location: "UK",
     current: false,
     description:
-      "Foundational IT skills covering hardware, software and digital communication.",
+      "Digital and IT skills qualification, England, UK.",
   },
 ];
 
@@ -70,7 +70,7 @@ export const CERTIFICATIONS: Certification[] = [
     year: "Mar 2025",
   },
   {
-    name: "PMP Certificate of Training",
+    name: "Project Management Training: 36 Contact Hours (PMI PMBOK aligned)",
   },
   {
     name: "Programming & Web Development (PHP)",

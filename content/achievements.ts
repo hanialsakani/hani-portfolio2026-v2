@@ -13,14 +13,14 @@ export const ACHIEVEMENTS: Achievement[] = [
     suffix: "%",
     label: "Efficiency gain",
     description:
-      "Designed Looker dashboards that improved decision-making efficiency by 30% across ISDB operations.",
+      "Designed Looker Studio dashboards for supervisors and management at a youth-development non-profit, improving decision-making efficiency by 30%.",
   },
   {
     value: 20,
     suffix: "%",
     label: "Faster approvals",
     description:
-      "Reduced project deliverable approval times by 20% through improved documentation workflows.",
+      "Ran a gap analysis on reporting and approval workflows, reducing evaluation and approval bottleneck times by 20%.",
   },
   {
     value: 16,
@@ -30,10 +30,10 @@ export const ACHIEVEMENTS: Achievement[] = [
       "Supported over 16,000 participants in leadership and skill-building initiatives through data-driven reporting.",
   },
   {
-    value: 10,
-    suffix: "+",
+    value: 13,
+    suffix: "",
     label: "Years of experience",
     description:
-      "Over 10 years across IT business analysis, project management, and administrative leadership roles.",
+      "13 years of work, including 4+ years of business analysis, across IT business analysis, project coordination and administrative leadership.",
   },
 ];

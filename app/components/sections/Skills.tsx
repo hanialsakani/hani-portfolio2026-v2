@@ -61,19 +61,6 @@ export default function Skills() {
           })}
         </div>
 
-        <Reveal delay={0.3}>
-          <p className="flex items-center gap-4 mt-5 font-mono text-[10px] tracking-[0.08em] uppercase text-ink-faint">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-[3px] bg-chart-blue inline-block" /> Expert
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-[3px] bg-chart-blue-soft border border-chart-blue/40 inline-block" /> Advanced
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-[3px] border border-line inline-block" /> Working proficiency
-            </span>
-          </p>
-        </Reveal>
       </div>
     </section>
   );

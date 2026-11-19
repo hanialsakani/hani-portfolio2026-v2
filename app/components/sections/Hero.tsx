@@ -136,7 +136,7 @@ export default function Hero() {
               </span>
             </div>
             <figcaption className="mt-5 text-center font-mono text-[10px] tracking-[0.1em] uppercase text-ink-faint">
-              ECBA · MSc Business Analytics &apos;26
+              ECBA · MSc Business Analytics, Distinction
             </figcaption>
           </motion.figure>
         </div>
