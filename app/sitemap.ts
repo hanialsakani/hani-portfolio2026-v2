@@ -3,7 +3,8 @@ import { getAllPosts } from "@/lib/posts";
 import { SITE_URL } from "@/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const articles = getAllPosts()
+  const posts = getAllPosts();
+  const articles = posts
     .filter((p) => p.hasPage)
     .map((p) => ({
       url: `${SITE_URL}/insights/${p.slug}`,
@@ -19,12 +20,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 1,
     },
-    {
-      url: `${SITE_URL}/insights`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
+    ...(posts.length > 0
+      ? [
+          {
+            url: `${SITE_URL}/insights`,
+            lastModified: new Date(),
+            changeFrequency: "weekly" as const,
+            priority: 0.8,
+          },
+        ]
+      : []),
     ...articles,
   ];
 }

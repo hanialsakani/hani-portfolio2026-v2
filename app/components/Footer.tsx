@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { NAV_ITEMS } from "@/app/components/chapters";
 import { SITE } from "@/content/site";
+import { getAllPosts } from "@/lib/posts";
 
 function MailIcon() {
   return (
@@ -31,6 +32,12 @@ function RssIcon() {
 
 
 export default function Footer() {
+  // Insights and RSS links appear only once a post is published.
+  const showInsights = getAllPosts().length > 0;
+  const navItems = showInsights
+    ? NAV_ITEMS
+    : NAV_ITEMS.filter((item) => item.id !== "insights");
+
   return (
     <footer className="border-t border-line mt-6">
       <div className="max-w-6xl mx-auto px-5 sm:px-6 py-10">
@@ -54,7 +61,7 @@ export default function Footer() {
               Explore
             </p>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5">
-              {NAV_ITEMS.map(({ id, label, href }) => (
+              {navItems.map(({ id, label, href }) => (
                 <li key={id}>
                   <Link href={href} className="text-sm text-ink-soft hover:text-chart-blue transition-colors">
                     {label}
@@ -89,12 +96,14 @@ export default function Footer() {
                   LinkedIn
                 </a>
               </li>
-              <li>
-                <a href="/rss.xml" className="inline-flex items-center gap-2.5 text-sm text-ink-soft hover:text-chart-orange transition-colors">
-                  <RssIcon />
-                  RSS feed
-                </a>
-              </li>
+              {showInsights && (
+                <li>
+                  <a href="/rss.xml" className="inline-flex items-center gap-2.5 text-sm text-ink-soft hover:text-chart-orange transition-colors">
+                    <RssIcon />
+                    RSS feed
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>

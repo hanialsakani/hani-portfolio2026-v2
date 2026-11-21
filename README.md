@@ -34,7 +34,11 @@ Your post body in plain markdown…
 - Start from `content/posts/_TEMPLATE.md` — copy it, rename, fill in.
   (Files starting with `_` are ignored by the site.)
 
-The five posts currently in `content/posts/` are editable starter samples.
+There are no published posts yet. The `_draft-` files in `content/posts/` are
+old AI-written samples kept hidden on purpose — do not republish them as they
+are (see `docs/2026-11-19_SESSION-LOG.md`). Until the first real post exists,
+the Insights menu link, hero button, footer RSS link and sitemap entry stay
+hidden; they all appear automatically when you publish a post.
 
 ## Updating career data (no code required)
 

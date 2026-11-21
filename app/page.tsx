@@ -46,9 +46,9 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
-      <Navbar />
+      <Navbar showInsights={posts.length > 0} />
       <main>
-        <Hero />
+        <Hero showInsights={posts.length > 0} />
         <LatestInsights posts={posts} />
         <Impact />
         <About />

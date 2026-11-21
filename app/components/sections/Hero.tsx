@@ -43,7 +43,9 @@ function CareerArea() {
   );
 }
 
-export default function Hero() {
+/** `showInsights` is true once at least one post is published; until then
+ *  the secondary button points to Experience instead of an empty feed. */
+export default function Hero({ showInsights }: { showInsights: boolean }) {
   const reduce = useReducedMotion();
   const item: Variants = {
     hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 18 },
@@ -73,8 +75,9 @@ export default function Hero() {
               variants={item}
               className="font-display font-extrabold text-[2.6rem] leading-[1.02] sm:text-6xl lg:text-[4.4rem] tracking-tight text-ink [text-wrap:balance] mb-6 max-w-[16ch]"
             >
-              My career is a chart that only goes{" "}
-              <span className="text-chart-blue">up and to the right.</span>
+              {SITE.headline.lead}
+              <span className="text-chart-blue">{SITE.headline.emphasis}</span>
+              {SITE.headline.tail}
             </motion.h1>
 
             <motion.p
@@ -91,12 +94,21 @@ export default function Hero() {
               >
                 Let&apos;s talk →
               </a>
-              <Link
-                href="/insights"
-                className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
-              >
-                Read my insights
-              </Link>
+              {showInsights ? (
+                <Link
+                  href="/insights"
+                  className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
+                >
+                  Read my insights
+                </Link>
+              ) : (
+                <a
+                  href="#experience"
+                  className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
+                >
+                  See my experience
+                </a>
+              )}
             </motion.div>
 
             <motion.p

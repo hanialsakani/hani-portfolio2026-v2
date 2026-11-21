@@ -38,7 +38,12 @@ function ThemeToggle() {
   );
 }
 
-export default function Navbar() {
+/** `showInsights` is true once at least one post is published, so the
+ *  Insights link never leads visitors to an empty page. */
+export default function Navbar({ showInsights }: { showInsights: boolean }) {
+  const navItems = showInsights
+    ? NAV_ITEMS
+    : NAV_ITEMS.filter((item) => item.id !== "insights");
   const [activeId, setActiveId] = useState<string>("");
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
@@ -79,7 +84,7 @@ export default function Navbar() {
 
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}
@@ -125,7 +130,7 @@ export default function Navbar() {
             className="md:hidden overflow-hidden bg-bg border-t border-line"
           >
             <div className="px-5 py-3 flex flex-col">
-              {NAV_ITEMS.map((item) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.id}
                   href={item.href}

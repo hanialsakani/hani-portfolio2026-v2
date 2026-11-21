@@ -16,7 +16,7 @@ export default function InsightsPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar showInsights={posts.length > 0} />
       <main className="pt-14 min-h-screen">
         <div className="max-w-3xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
           <header className="mb-8">

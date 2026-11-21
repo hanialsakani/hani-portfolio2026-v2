@@ -76,7 +76,7 @@ export default async function PostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
+      <Navbar showInsights />
       <main className="pt-14 min-h-screen">
         <article className="max-w-2xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
           <Link
