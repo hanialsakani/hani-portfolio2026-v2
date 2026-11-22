@@ -25,10 +25,21 @@ Later in the session (Hani's request), the two hero issues below were fixed and 
 5. **Hero kicker** — "▲ trending since 2012" removed; the kicker now reads `SITE.kicker · SITE.location` ("Business Analyst · Data Analytics · Greater London, UK").
 6. **Hero chart glitches** — the contact line (skills · email · LinkedIn) now has a page-coloured backing so the chart line passes behind it at every width; the line now ends inside the edge at (588, 19) and the orange end dot is an HTML element positioned at 98% / 11.2% of the chart box, so it is never clipped or stretched by the SVG's `preserveAspectRatio="none"`.
 
+### Later the same session (22 Nov)
+
+- **PR #2 merged** (`d0a1a84`) and verified on production. Note: this sandbox's network blocks `*.vercel.app`; the live check was done with a web-fetch tool instead.
+- **Counter bug found on production:** the live fetch showed the hero gauges as "+-212%", "-113K+" etc. `Counter.tsx` clamped animation progress only at the top; rAF timestamps can precede the start time and headless renderers use virtual time, so the cubic ease went negative. Fixed by clamping to [0, 1] — **PR #3, open, waiting for Hani to merge** (Claude's merge was blocked because only PR #2's merge had been approved).
+- **Design round 4 pitched:** https://claude.ai/artifact/GXXVnrFFTqqj7WTv7fQSuj (private artifact). Hani's brief: the current site is too focused on data analysis; he wants a **business-analysis-led** redesign, big changes, light + dark kept, and nothing that looks sloppy or AI-generated. Three directions, each with a sample home page and Insights page:
+  1. **Current state → future state** (recommended): process-map visual language, a real as-is/to-be workflow in the hero (based on the Hady & Adahi gap analysis), case studies as current state / gap / future state / result. Archivo + IBM Plex Mono; slate, process green, red only for bottlenecks.
+  2. **Given · When · Then**: user-story hero with the hiring manager as the user; results as acceptance criteria (AC1–AC3) marked met with the proving role. Schibsted Grotesk + JetBrains Mono; black, highlighter yellow.
+  3. **The translator**: split hero (problem as the business sees it / what Hani did + result, photo at the seam); optional Arabic version and Arabic posts. Readex Pro (Latin + Arabic); wine and warm white. The Arabic sample text in the pitch must be checked by Hani before any use.
+  - Changes proposed for all three: "Business Analyst" leads (data skills supporting); charts and gauges removed; skills open with BA work; "Chart of the Week" post type becomes "Process teardown".
+  - **Waiting on Hani's choice** (1, 2, 3 or a mix).
+
 ## 2. Still open (carried forward)
 
 1. ~~Hero kicker tone~~ — fixed (item 5 above).
-2. **Design round (next step, Hani's request)** — new theme and better visuals; keep light + dark. Process agreed earlier in the project: propose 3 directions, each with a draft of the home page and the Insights page, Hani picks, then build. Waiting on Hani's answer to: what he dislikes about the current look and what feeling he wants (examples of sites he likes help).
+2. **Design round** — pitched (see above); waiting on Hani's choice, then build on the real site.
 3. ~~Hero visual glitches~~ — fixed (item 6 above).
 4. **Case Files** — `content/projects.ts` still empty. Candidates (from 19 Nov log): Altanmiah Looker Studio pipeline, Cloudflare clean-up, MSc dissertation, Istanbul Airbnb Tableau project, gym app.
 5. **First real Insights posts** — only Hani's own verified stories (19 Nov log section 5). Strong first candidates: the Altanmiah dashboard adoption story, the Cloudflare clean-up.
