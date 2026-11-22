@@ -15,21 +15,17 @@ const container: Variants = {
 /** Career trajectory drawn behind the headline — rises 2012 → now. */
 function CareerArea() {
   const line =
-    "M0,150 L55,142 L110,145 L165,126 L220,130 L275,102 L330,108 L385,78 L440,63 L495,40 L550,28 L600,16";
+    "M0,150 L55,142 L110,145 L165,126 L220,130 L275,102 L330,108 L385,78 L440,63 L495,40 L550,28 L588,19";
   return (
-    <svg
-      className="absolute inset-x-0 bottom-0 w-full h-[62%] pointer-events-none"
-      viewBox="0 0 600 170"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
+    <div className="absolute inset-x-0 bottom-0 h-[62%] pointer-events-none" aria-hidden="true">
+    <svg className="w-full h-full" viewBox="0 0 600 170" preserveAspectRatio="none">
       <defs>
         <linearGradient id="hero-area" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="var(--chart-blue)" stopOpacity="0.22" />
           <stop offset="1" stopColor="var(--chart-blue)" stopOpacity="0" />
         </linearGradient>
       </defs>
-      <path d={`${line} L600,170 L0,170 Z`} fill="url(#hero-area)" className="fade-late" />
+      <path d={`${line} L600,19 L600,170 L0,170 Z`} fill="url(#hero-area)" className="fade-late" />
       <path
         d={line}
         fill="none"
@@ -38,8 +34,13 @@ function CareerArea() {
         className="draw-path"
         style={{ ["--path-len" as string]: "700" }}
       />
-      <circle cx="600" cy="16" r="5" fill="var(--chart-orange)" className="fade-late" />
     </svg>
+      {/* End point at (588, 19) in viewBox units = 98% across, 11.2% down */}
+      <span
+        className="fade-late absolute w-3 h-3 rounded-full bg-chart-orange -translate-x-1/2 -translate-y-1/2"
+        style={{ left: "98%", top: "11.2%" }}
+      />
+    </div>
   );
 }
 
@@ -67,8 +68,7 @@ export default function Hero({ showInsights }: { showInsights: boolean }) {
               variants={item}
               className="font-mono text-[11px] sm:text-xs tracking-[0.18em] uppercase text-chart-blue mb-5"
             >
-              {SITE.kicker} · London&ensp;
-              <span className="text-chart-green">▲ trending since 2012</span>
+              {SITE.kicker} · {SITE.location}
             </motion.p>
 
             <motion.h1
@@ -113,7 +113,7 @@ export default function Hero({ showInsights }: { showInsights: boolean }) {
 
             <motion.p
               variants={item}
-              className="font-mono text-[11px] tracking-[0.06em] text-ink-faint"
+              className="inline-block font-mono text-[11px] tracking-[0.06em] text-ink-faint bg-bg/90 backdrop-blur-sm rounded-md px-2 py-1 -mx-2"
             >
               {SITE.heroSkills.join(" · ")} &ensp;·&ensp;{" "}
               <a href={`mailto:${SITE.email}`} className="hover:text-chart-blue transition-colors">

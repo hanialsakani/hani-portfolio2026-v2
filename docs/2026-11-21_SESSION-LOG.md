@@ -20,13 +20,16 @@ Step 1 changes, on branch `claude/portfolio-audit-redesign-yvy94m` (restarted fr
 
 Verified: `npm run lint` and `npm run build` clean; home page checked in a browser at desktop and mobile widths.
 
-**Not live yet:** the site deploys from `main`. These changes are on the branch and go live only once merged into `main`.
+Later in the session (Hani's request), the two hero issues below were fixed and the branch was merged to `main` via a pull request:
+
+5. **Hero kicker** — "▲ trending since 2012" removed; the kicker now reads `SITE.kicker · SITE.location` ("Business Analyst · Data Analytics · Greater London, UK").
+6. **Hero chart glitches** — the contact line (skills · email · LinkedIn) now has a page-coloured backing so the chart line passes behind it at every width; the line now ends inside the edge at (588, 19) and the orange end dot is an HTML element positioned at 98% / 11.2% of the chart box, so it is never clipped or stretched by the SVG's `preserveAspectRatio="none"`.
 
 ## 2. Still open (carried forward)
 
-1. **Hero kicker tone** — "▲ trending since 2012" is still hardcoded in `Hero.tsx`; same boastfulness concern as the old headline. Decide in the design round.
+1. ~~Hero kicker tone~~ — fixed (item 5 above).
 2. **Design round (next step, Hani's request)** — new theme and better visuals; keep light + dark. Process agreed earlier in the project: propose 3 directions, each with a draft of the home page and the Insights page, Hani picks, then build. Waiting on Hani's answer to: what he dislikes about the current look and what feeling he wants (examples of sites he likes help).
-3. **Hero visual glitches seen today (pre-existing):** on desktop the career-chart line crosses the "LinkedIn ↗" text in the hero contact line, and the orange end-point dot is clipped at the right edge. Fix in the design round.
+3. ~~Hero visual glitches~~ — fixed (item 6 above).
 4. **Case Files** — `content/projects.ts` still empty. Candidates (from 19 Nov log): Altanmiah Looker Studio pipeline, Cloudflare clean-up, MSc dissertation, Istanbul Airbnb Tableau project, gym app.
 5. **First real Insights posts** — only Hani's own verified stories (19 Nov log section 5). Strong first candidates: the Altanmiah dashboard adoption story, the Cloudflare clean-up.
 6. **`public/profile.png`** (2.4 MB) — unused source file; keep or remove (Hani to decide).
