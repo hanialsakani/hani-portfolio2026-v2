@@ -15,21 +15,17 @@ const container: Variants = {
 /** Career trajectory drawn behind the headline — rises 2012 → now. */
 function CareerArea() {
   const line =
-    "M0,150 L55,142 L110,145 L165,126 L220,130 L275,102 L330,108 L385,78 L440,63 L495,40 L550,28 L600,16";
+    "M0,150 L55,142 L110,145 L165,126 L220,130 L275,102 L330,108 L385,78 L440,63 L495,40 L550,28 L588,19";
   return (
-    <svg
-      className="absolute inset-x-0 bottom-0 w-full h-[62%] pointer-events-none"
-      viewBox="0 0 600 170"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
+    <div className="absolute inset-x-0 bottom-0 h-[62%] pointer-events-none" aria-hidden="true">
+    <svg className="w-full h-full" viewBox="0 0 600 170" preserveAspectRatio="none">
       <defs>
         <linearGradient id="hero-area" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="var(--chart-blue)" stopOpacity="0.22" />
           <stop offset="1" stopColor="var(--chart-blue)" stopOpacity="0" />
         </linearGradient>
       </defs>
-      <path d={`${line} L600,170 L0,170 Z`} fill="url(#hero-area)" className="fade-late" />
+      <path d={`${line} L600,19 L600,170 L0,170 Z`} fill="url(#hero-area)" className="fade-late" />
       <path
         d={line}
         fill="none"
@@ -38,12 +34,19 @@ function CareerArea() {
         className="draw-path"
         style={{ ["--path-len" as string]: "700" }}
       />
-      <circle cx="600" cy="16" r="5" fill="var(--chart-orange)" className="fade-late" />
     </svg>
+      {/* End point at (588, 19) in viewBox units = 98% across, 11.2% down */}
+      <span
+        className="fade-late absolute w-3 h-3 rounded-full bg-chart-orange -translate-x-1/2 -translate-y-1/2"
+        style={{ left: "98%", top: "11.2%" }}
+      />
+    </div>
   );
 }
 
-export default function Hero() {
+/** `showInsights` is true once at least one post is published; until then
+ *  the secondary button points to Experience instead of an empty feed. */
+export default function Hero({ showInsights }: { showInsights: boolean }) {
   const reduce = useReducedMotion();
   const item: Variants = {
     hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 18 },
@@ -65,16 +68,16 @@ export default function Hero() {
               variants={item}
               className="font-mono text-[11px] sm:text-xs tracking-[0.18em] uppercase text-chart-blue mb-5"
             >
-              {SITE.kicker} · London&ensp;
-              <span className="text-chart-green">▲ trending since 2012</span>
+              {SITE.kicker} · {SITE.location}
             </motion.p>
 
             <motion.h1
               variants={item}
               className="font-display font-extrabold text-[2.6rem] leading-[1.02] sm:text-6xl lg:text-[4.4rem] tracking-tight text-ink [text-wrap:balance] mb-6 max-w-[16ch]"
             >
-              My career is a chart that only goes{" "}
-              <span className="text-chart-blue">up and to the right.</span>
+              {SITE.headline.lead}
+              <span className="text-chart-blue">{SITE.headline.emphasis}</span>
+              {SITE.headline.tail}
             </motion.h1>
 
             <motion.p
@@ -91,17 +94,26 @@ export default function Hero() {
               >
                 Let&apos;s talk →
               </a>
-              <Link
-                href="/insights"
-                className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
-              >
-                Read my insights
-              </Link>
+              {showInsights ? (
+                <Link
+                  href="/insights"
+                  className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
+                >
+                  Read my insights
+                </Link>
+              ) : (
+                <a
+                  href="#experience"
+                  className="px-6 py-3 border border-line bg-surface text-ink font-semibold text-sm rounded-xl hover:border-ink-faint transition-colors"
+                >
+                  See my experience
+                </a>
+              )}
             </motion.div>
 
             <motion.p
               variants={item}
-              className="font-mono text-[11px] tracking-[0.06em] text-ink-faint"
+              className="inline-block font-mono text-[11px] tracking-[0.06em] text-ink-faint bg-bg/90 backdrop-blur-sm rounded-md px-2 py-1 -mx-2"
             >
               {SITE.heroSkills.join(" · ")} &ensp;·&ensp;{" "}
               <a href={`mailto:${SITE.email}`} className="hover:text-chart-blue transition-colors">
