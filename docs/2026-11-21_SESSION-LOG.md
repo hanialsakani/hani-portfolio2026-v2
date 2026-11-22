@@ -36,10 +36,29 @@ Later in the session (Hani's request), the two hero issues below were fixed and 
   - Changes proposed for all three: "Business Analyst" leads (data skills supporting); charts and gauges removed; skills open with BA work; "Chart of the Week" post type becomes "Process teardown".
   - **Waiting on Hani's choice** (1, 2, 3 or a mix).
 
+### Direction chosen and phased build agreed (22 Nov)
+
+- **PR #3 merged** (`280b99d`, Hani's explicit request). Live check: gauges no longer show negative values (headless renderers now see 0, since the count-up has not run; acceptable because the redesign removes the gauges and shows numbers as plain text).
+- **Hani chose direction 1, "Current state → future state"**, but was not happy with its colours, fonts and sizes. Agreed to build it **phase by phase as a web designer**, with review and approval after each phase:
+  1. Visual foundation — colours, fonts, type sizes, light/dark (**current**)
+  2. Header and hero — navigation, headline, process map (include a proper vertical phone version of the map)
+  3. Outcomes and case studies
+  4. Experience, skills, credentials
+  5. Contact and footer
+  6. Insights — feed, post page, process-teardown format
+  7. Final check (phone/tablet/desktop, accessibility, speed, SEO), then merge to `main`
+  - Build on the branch; Vercel previews per push; **nothing merges to `main` until phase 7 and Hani's final yes**.
+- **Phase 1 pitched:** https://claude.ai/artifact/KDZtM3AKfKr75FE4s5EWR8 — three foundation options, each with light/dark and desktop/phone switches, a type-size table and palettes:
+  - **A · Boardroom** (recommended): Plus Jakarta Sans; navy-black ink, process blue `#1f5bd6`, bottleneck red; body 17px, labels 12px caps, H1 44px; 8/10px radii.
+  - **B · Workshop**: Figtree; warm charcoal, berry `#8b3a72`, bottleneck amber; body 17.5px, sentence-case labels 13px, H1 48px; pill buttons, 14px radii.
+  - **C · Blueprint**: Sora headlines + Inter body + IBM Plex Mono labels 12.5px; process green `#0b7a55`, bottleneck red; body 16.5px, H1 46px; 4px radii.
+  - Diagnosis of the round-4 sample that all options fix: headline face too wide/heavy; labels 10–11px too small; monospace caps everywhere; flat grey-green page. Rule from now on: labels ≥ 12px, body 16.5–17.5px, map labels ≈ 12px after scaling.
+  - **Waiting on Hani's pick** (A/B/C or a mix, plus any comments).
+
 ## 2. Still open (carried forward)
 
 1. ~~Hero kicker tone~~ — fixed (item 5 above).
-2. **Design round** — pitched (see above); waiting on Hani's choice, then build on the real site.
+2. **Redesign** — direction 1 chosen; phased build, Phase 1 (visual foundation) waiting on Hani's pick.
 3. ~~Hero visual glitches~~ — fixed (item 6 above).
 4. **Case Files** — `content/projects.ts` still empty. Candidates (from 19 Nov log): Altanmiah Looker Studio pipeline, Cloudflare clean-up, MSc dissertation, Istanbul Airbnb Tableau project, gym app.
 5. **First real Insights posts** — only Hani's own verified stories (19 Nov log section 5). Strong first candidates: the Altanmiah dashboard adoption story, the Cloudflare clean-up.
