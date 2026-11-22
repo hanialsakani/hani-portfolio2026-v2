@@ -24,7 +24,10 @@ export default function Counter({
     let raf: number;
     const start = performance.now();
     const tick = (now: number) => {
-      const t = Math.min((now - start) / duration, 1);
+      // rAF timestamps can precede `start` (and headless renderers use
+      // virtual time), so clamp to [0, 1] — otherwise the cubic ease
+      // produces large negative numbers like "-212%".
+      const t = Math.min(Math.max((now - start) / duration, 0), 1);
       const eased = 1 - Math.pow(1 - t, 3);
       setDisplay(Math.round(value * eased));
       if (t < 1) raf = requestAnimationFrame(tick);
